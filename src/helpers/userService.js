@@ -26,6 +26,7 @@ class userService {
    * @memberof userService
    */
   static async newUser(username, password, User) {
+    const hash = bcrypt.hashSync(password, saltRounds);
     try {
       let data = {};
       const foundUser = await User.findOne({
@@ -40,7 +41,7 @@ class userService {
       } else {
         await User.create({
           username,
-          password
+          password: hash
         });
         data = {
           status: messageConstant.SUCCESS,
@@ -84,20 +85,20 @@ class userService {
             token,
             username: user.username
           };
-          return FormatService.mountUserAuth(data);
+          return FormatService.mountAuth(data);
         } else {
           data = {
             status: messageConstant.FAIL,
             message: 'Username or password is wrong'
           };
-          return FormatService.mountUserAuth(data);
+          return FormatService.mountAuth(data);
         }
       } else {
         data = {
           status: messageConstant.FAIL,
           message: 'Sorry, You do not have an account'
         };
-        return FormatService.mountUserAuth(data);
+        return FormatService.mountAuth(data);
       }
     } catch (e) {
       throw e;
