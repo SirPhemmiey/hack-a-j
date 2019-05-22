@@ -15,15 +15,34 @@
 ### Running
 * Run: ```npm start``` or ```yarn start```
 
-### Endpoints
+## Endpoints
 
-## Authentication:
+### Authentication:
 
 `POST /api/v1/loginUser`
+
 Example Request body:
 ```
 {
-	"username": "ok",
+	"username": "username",
 	"password": "password"
 }
 ```
+No authentication required, authenticates a user then returns a token.
+Required fields: `username`, `password`
+
+## Registration:
+
+`POST /api/v1/createUser`
+
+Example Request body:
+```
+{
+	"username": "newuser",
+	"password": "newpassword"
+}
+```
+No authentication required, returns a success message
+Required fields: `username`, `password`
+
+
