@@ -29,6 +29,7 @@ Example Request body:
 }
 ```
 No authentication required, authenticates a user then returns a token.
+
 Required fields: `username`, `password`
 
 ## Registration:
@@ -43,6 +44,77 @@ Example Request body:
 }
 ```
 No authentication required, returns a success message
+
 Required fields: `username`, `password`
+
+## Create a record:
+
+`POST /api/v1/createRecord`
+
+Example Request body:
+```
+{
+	"firstname": "firstname",
+	"lastname": "lastname",
+	"email": "email@gmail.com",
+	"phone": "07023456091",
+	"mobile": "08072212439",
+	"company": "Google",
+	"title": "Software Engineer"
+}
+```
+
+Authentication required, returns a success message
+
+Required fields: `firstname`, `lastname`, `email`, `phone`
+
+## Get a single record:
+
+`GET /api/v1/getRecord/<recordId>`
+
+Authentication required, returns a success message and a phonebook record object
+
+## Get all records:
+
+`GET /api/v1/getAllRecords`
+
+Query parameters:
+
+Filter by page and limit(default page=1 and limit=10):
+
+`?page=1&limit=5`
+
+Search by name of item or item description:
+
+`?firstname=Arc`
+
+Authentication required, returns a success message and a phonebook record object
+
+## Update a record: 
+
+`PUT /api/v1/updateRecord/<recordId>`
+
+Example Request body:
+```
+{
+	"firstname": "firstname",
+	"lastname": "lastname",
+	"email": "email@gmail.com",
+	"phone": "07023456091",
+	"mobile": "08072212439",
+	"company": "Google",
+	"title": "Software Engineer"
+}
+```
+Authentication required, returns a success message
+
+Accepted fields: `firstname`, `lastname`, `email`, `phone`, `mobile`, `company`, `mobile`, `company`, `title`
+
+## Delete a record
+
+`DELETE /api/v1/deleteRecord/<recordId>`
+
+Authentication required, deletes an record from the database
+
 
 
