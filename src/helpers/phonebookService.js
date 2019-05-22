@@ -1,7 +1,7 @@
 const dotenv = require('dotenv');
 const FormatService = require('./FormatService');
-const messageConstant = require('../constant/messagesConstant');
-const codeConstant = require('../constant/codesConstants');
+const messageConstant = require('../constant/messageConstants');
+const codeConstant = require('../constant/codeConstants');
 
 dotenv.config();
 /**

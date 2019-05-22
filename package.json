@@ -4,7 +4,7 @@
   "description": "A phonebook API",
   "main": "index.js",
   "scripts": {
-    "start": "node ./bin/www",
+    "start": "nodemon ./bin/www",
     "test": "mocha ./src/test/index.js"
   },
   "repository": {
@@ -37,7 +37,7 @@
     "metalogger": "^2.2.1",
     "mocha": "^6.1.4",
     "mongoose": "^5.5.10",
-    "mysql": "^2.17.1",
+    "mysql2": "^1.6.5",
     "newrelic": "^5.9.0",
     "nodemon": "^1.19.0",
     "sequelize": "^5.8.6",

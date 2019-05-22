@@ -1,20 +1,19 @@
-const createError = require("http-errors");
-const express = require("express");
-const path = require("path");
-const cookieParser = require("cookie-parser");
-const dotenv = require("dotenv");
-//const logger = require("morgan");
-//const swaggerUi = require('swagger-ui-express');
-const { cors } = require("./src/config/cors");
+const createError = require('http-errors');
+const express = require('express');
+const cookieParser = require('cookie-parser');
+const dotenv = require('dotenv');
+// const logger = require("morgan");
+// const swaggerUi = require('swagger-ui-express');
+const { cors } = require('./src/config/cors');
 
-const routers = require("./src/routes");
+const routers = require('./src/routes');
 
-//const swaggerDocument = require('./src/config/swagger.json');
+// const swaggerDocument = require('./src/config/swagger.json');
 
 dotenv.config();
 const app = express();
 
-//app.use(logger("dev"));
+// app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
@@ -38,7 +37,7 @@ app.use(cookieParser());
 app.use(cors);
 
 /* Routes */
-app.use("/api/v1", routers);
+app.use('/api/v1', routers);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
@@ -49,17 +48,17 @@ app.use((req, res, next) => {
 app.use((err, req, res, next) => {
   // set locals, only providing error in development
   res.locals.message = err.message;
-  res.locals.error = req.app.get("env") === "development" ? err : {};
+  res.locals.error = req.app.get('env') === 'development' ? err : {};
 
   // render the error page
   res.status(err.status || 500);
 
   switch (err.status) {
     case 400:
-      res.json({ status: "fail", message: err.message });
+      res.json({ status: 'fail', message: err.message });
       break;
     default:
-      res.json({ status: "fail", message: err.toString() });
+      res.json({ status: 'fail', message: err.toString() });
       break;
   }
 });

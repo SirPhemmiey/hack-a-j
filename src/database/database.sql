@@ -6,7 +6,7 @@ CREATE TABLE `phonebook` (
   `lastname`      VARCHAR(100) NOT NULL,
   `email`         VARCHAR(100) NOT NULL,
   `phone`         BIGINT NOT NULL,
-  `mobile`        BIGINT NOT NULL,
+  `mobile`        BIGINT NULL,
   `company`       VARCHAR(100) NULL,
   `title`         VARCHAR(20) NULL,
   `created_date`  DATETIME NOT NULL,

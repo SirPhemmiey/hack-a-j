@@ -2,7 +2,7 @@ const bcrypt = require('bcrypt');
 const dotenv = require('dotenv');
 const jwt = require('jsonwebtoken');
 const FormatService = require('./FormatService');
-const messageConstant = require('../constant/messagesConstant');
+const messageConstant = require('../constant/messageConstants');
 
 const saltRounds = bcrypt.genSaltSync(10);
 
