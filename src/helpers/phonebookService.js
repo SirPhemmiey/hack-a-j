@@ -70,6 +70,13 @@ class phoneService {
           data: phoneDetails
         };
         return FormatService.mountJSON(responseData);
+      } else {
+        responseData = {
+          code: codeConstant.NOT_FOUND,
+          status: messageConstant.FAIL,
+          message: messageConstant.NOT_FOUND
+        };
+        return FormatService.mountJSON(responseData);
       }
     } catch (err) {
       responseData = {
@@ -143,12 +150,10 @@ class phoneService {
   static async delete(id, Phonebook) {
     let responseData = {};
     try {
-      console.log('new?', id);
-      const findId = await Phonebook.find({
+      const findId = await Phonebook.findOne({
         where: { id }
       });
       if (findId) {
-        console.log('i can fin it');
         const result = await Phonebook.destroy({
           where: { id }
         });
@@ -168,7 +173,6 @@ class phoneService {
           return FormatService.mountJSON(responseData);
         }
       } else {
-        console.log('i canno');
         responseData = {
           code: codeConstant.NOT_FOUND,
           status: messageConstant.FAIL,

@@ -55,8 +55,7 @@ const updateRecord = async (req, res) => {
  */
 const deleteRecord = async (req, res) => {
   const { id } = req.params;
-  req.body.id = id;
-  const results = await phonebookService.delete(req.body, Phonebook);
+  const results = await phonebookService.delete(id, Phonebook);
   res.json({
     ...results
   });
