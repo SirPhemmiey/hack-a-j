@@ -1,0 +1,83 @@
+{
+    "swagger": "2.0",
+    "basePath": "/api/v1",
+    "info": {
+      "version": "0.0.1",
+      "title": "Turing Test API",
+      "description": "Official documentation about Turing Test API."
+    },
+    "schemes": [
+      "http"
+    ],
+    "consumes": [
+      "application/x-www-form-urlencoded",
+      "multipart/form-data"
+    ],
+    "tags": [
+      {
+        "name": "Test",
+        "description": "Endpoints about automatic test"
+      }
+    ],
+    "definitions": {},
+    "paths": {
+      "/validation": {
+        "post": {
+          "tags": [
+            "Test"
+          ],
+          "summary": "Check HTML Validation",
+          "description": "Return a object with informations about the code.",
+          "parameters": [
+            {
+              "name": "challenge_type",
+              "in": "formData",
+              "type": "string",
+              "enum": [
+                "FRONTEND",
+                "BACKEND"
+              ],
+              "description": "Type of Challenge",
+              "required": true
+            },
+            {
+              "name": "source_type",
+              "in": "formData",
+              "type": "string",
+              "enum": [
+                "REPOSITORY",
+                "ZIPFILE"
+              ],
+              "description": "Type of Challenge",
+              "required": true
+            },
+            {
+              "name": "zip_file",
+              "in": "formData",
+              "type": "file",
+              "description": "Zip File",
+              "required": false
+            },
+            {
+              "name": "repository",
+              "in": "formData",
+              "type": "string",
+              "description": "Git Repository",
+              "required": false
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Object to Report",
+              "schema": {
+                "type": "object",
+                "items": {}
+              }
+            }
+          },
+          "security": []
+        }
+      }
+    },
+    "securityDefinitions": {}
+  }
