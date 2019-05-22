@@ -1,5 +1,5 @@
 const dotenv = require('dotenv');
-const { User } = require('../database/models');
+const { Phonebook } = require('../database/models');
 const phonebookService = require('../helpers/phonebookService');
 
 dotenv.config();
@@ -12,7 +12,7 @@ dotenv.config();
  */
 
 const createRecord = async (req, res) => {
-  const results = await phonebookService.create(req.body, User);
+  const results = await phonebookService.create(req.body, Phonebook);
   res.json({
     ...results
   });
@@ -26,7 +26,7 @@ const createRecord = async (req, res) => {
  */
 const getRecord = async (req, res) => {
   const { id } = req.params;
-  const results = await phonebookService.get(id, User);
+  const results = await phonebookService.get(id, Phonebook);
   res.json({
     ...results
   });
@@ -41,7 +41,7 @@ const getRecord = async (req, res) => {
 const updateRecord = async (req, res) => {
   const { id } = req.params;
   req.body.id = id;
-  const results = await phonebookService.update(req.body, User);
+  const results = await phonebookService.update(req.body, Phonebook);
   res.json({
     ...results
   });
@@ -56,7 +56,7 @@ const updateRecord = async (req, res) => {
 const deleteRecord = async (req, res) => {
   const { id } = req.params;
   req.body.id = id;
-  const results = await phonebookService.delete(req.body, User);
+  const results = await phonebookService.delete(req.body, Phonebook);
   res.json({
     ...results
   });

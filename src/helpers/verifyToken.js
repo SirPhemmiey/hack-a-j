@@ -21,7 +21,7 @@ class VerifyToken {
    * @memberof VerifyToken
    */
   static verify(req, res, next) {
-    const header = req.headers.Authorization;
+    const header = req.headers.authorization;
     if (typeof header !== 'undefined') {
       const bearer = header.split(' ');
       const token = bearer[1];
@@ -30,7 +30,6 @@ class VerifyToken {
       jwt.verify(token, secret, (err, decoded) => {
         if (err) {
           const data = {
-            auth: false,
             token: null,
             message: err.message
           };
@@ -42,7 +41,6 @@ class VerifyToken {
     } else {
       // If header is undefined return Forbidden (403)
       const data = {
-        auth: false,
         token: null,
         message: 'Unauthorized Access. Please log in'
       };

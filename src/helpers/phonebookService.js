@@ -14,17 +14,17 @@ class phoneService {
    *
    * @description method to create a record
    * @param {object} data - Object containing phonebook information
-   * @param {*} User - The User model
+   * @param {*} Phonebook - The phonebook model
    * @returns an object
    * @memberof phoneService
    */
-  static async create(data, User) {
+  static async create(data, Phonebook) {
     let responseData = {};
     const {
       firstname, lastname, email, phone, mobile, company, title
     } = data;
     try {
-      await User.create({
+      await Phonebook.create({
         firstname,
         lastname,
         email,
@@ -40,7 +40,12 @@ class phoneService {
       };
       return FormatService.mountJSON(responseData);
     } catch (err) {
-      throw err;
+      responseData = {
+        code: codeConstant.INTERNAL_SERVER_ERROR,
+        status: messageConstant.FAIL,
+        message: err.message
+      };
+      return FormatService.mountJSON(responseData);
     }
   }
 
@@ -48,14 +53,14 @@ class phoneService {
    *
    * @description method to get a record
    * @param {number} id - ID of the phonebook information
-   * @param {*} User - The User model
+   * @param {*} Phonebook - The phonebook model
    * @returns an object
    * @memberof phoneService
    */
-  static async get(id, User) {
+  static async get(id, Phonebook) {
     let responseData = {};
     try {
-      const phoneDetails = await User.findOne({
+      const phoneDetails = await Phonebook.findOne({
         where: { id }
       });
       if (phoneDetails) {
@@ -64,10 +69,15 @@ class phoneService {
           status: messageConstant.SUCCESS,
           data: phoneDetails
         };
-        return FormatService.mountGet(responseData);
+        return FormatService.mountJSON(responseData);
       }
     } catch (err) {
-      throw err;
+      responseData = {
+        code: codeConstant.INTERNAL_SERVER_ERROR,
+        status: messageConstant.FAIL,
+        message: err.message
+      };
+      return FormatService.mountJSON(responseData);
     }
   }
 
@@ -75,29 +85,29 @@ class phoneService {
    *
    * @description method to update a record
    * @param {object} data - Object that contains the data to be updated
-   * @param {*} User - The User's model
+   * @param {*} Phonebook - The Phonebook model
    * @returns object
    * @memberof phoneService
    */
-  static async update(data, User) {
+  static async update(data, Phonebook) {
     let responseData = {};
     const {
       firstname, lastname, email, phone, mobile, company, title, id
     } = data;
     try {
-      const user = await User.findOne({
+      const phonebook = await Phonebook.findOne({
         where: { id }
       });
 
-      if (user) {
-        user.update({
-          firstname: firstname || user.firstname,
-          lastname: lastname || user.lastname,
-          email: email || user.email,
-          phone: phone || user.phone,
-          mobile: mobile || user.mobile,
-          company: company || user.company,
-          title: title || user.title
+      if (phonebook) {
+        phonebook.update({
+          firstname: firstname || phonebook.firstname,
+          lastname: lastname || phonebook.lastname,
+          email: email || phonebook.email,
+          phone: phone || phonebook.phone,
+          mobile: mobile || phonebook.mobile,
+          company: company || phonebook.company,
+          title: title || phonebook.title
         });
         responseData = {
           code: codeConstant.OK,
@@ -106,13 +116,19 @@ class phoneService {
         return FormatService.mountJSON(responseData);
       } else {
         responseData = {
-          status: codeConstant.NOT_FOUND,
+          code: codeConstant.NOT_FOUND,
+          status: messageConstant.FAIL,
           message: messageConstant.NOT_FOUND
         };
         return FormatService.mountJSON(responseData);
       }
     } catch (err) {
-      throw err;
+      responseData = {
+        code: codeConstant.INTERNAL_SERVER_ERROR,
+        status: messageConstant.FAIL,
+        message: err.message
+      };
+      return FormatService.mountJSON(responseData);
     }
   }
 
@@ -120,41 +136,53 @@ class phoneService {
    *
    * @description method to delete a record
    * @param {number} id - Id of the record to be deleted
-   * @param {*} User - The User's model
+   * @param {*} Phonebook - The Phonebook model
    * @returns object
    * @memberof phoneService
    */
-  static async delete(id, User) {
+  static async delete(id, Phonebook) {
     let responseData = {};
-    if (!id) {
-      responseData = {
-        code: codeConstant.CONFLICT,
-        status: 'No Id specified',
-        data: {}
-      };
-      return FormatService.mountJSON(responseData);
-    }
     try {
-      const result = await User.destroy({
+      console.log('new?', id);
+      const findId = await Phonebook.find({
         where: { id }
       });
-      if (result) {
-        responseData = {
-          code: codeConstant.OK,
-          status: messageConstant.SUCCESS,
-          data: {}
-        };
-        return FormatService.mountJSON(responseData);
+      if (findId) {
+        console.log('i can fin it');
+        const result = await Phonebook.destroy({
+          where: { id }
+        });
+        if (result) {
+          responseData = {
+            code: codeConstant.OK,
+            status: messageConstant.SUCCESS,
+            data: {}
+          };
+          return FormatService.mountJSON(responseData);
+        } else {
+          responseData = {
+            code: codeConstant.INTERNAL_SERVER_ERROR,
+            status: messageConstant.FAIL,
+            data: {}
+          };
+          return FormatService.mountJSON(responseData);
+        }
       } else {
+        console.log('i canno');
         responseData = {
-          code: codeConstant.INTERNAL_SERVER_ERROR,
-          status: messageConstant.INTERNAL_SERVER_ERROR,
-          data: {}
+          code: codeConstant.NOT_FOUND,
+          status: messageConstant.FAIL,
+          message: messageConstant.NOT_FOUND
         };
         return FormatService.mountJSON(responseData);
       }
     } catch (err) {
-      throw err;
+      responseData = {
+        code: codeConstant.INTERNAL_SERVER_ERROR,
+        status: messageConstant.FAIL,
+        message: err.message
+      };
+      return FormatService.mountJSON(responseData);
     }
   }
 }

@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-  const User = sequelize.define(
+  const Phonebook = sequelize.define(
     'Phonebook',
     {
       id: {
@@ -19,12 +19,15 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
-          isEmail: { msg: 'Please enter a valid email' }
+          isEmail: true
         }
       },
       phone: {
         type: DataTypes.BIGINT,
-        allowNull: false
+        allowNull: false,
+        validate: {
+          isNumeric: true
+        }
       },
       mobile: {
         type: DataTypes.BIGINT,
@@ -55,5 +58,5 @@ module.exports = (sequelize, DataTypes) => {
     }
   );
 
-  return User;
+  return Phonebook;
 };

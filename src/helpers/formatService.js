@@ -13,11 +13,14 @@ class FormatService {
    * @memberof FormatService
    */
   static mountJSON(object) {
-    const { code, status, message } = object;
+    const {
+      code, status, message, data
+    } = object;
     return {
       code,
       status,
-      message
+      message,
+      data
     };
   }
 

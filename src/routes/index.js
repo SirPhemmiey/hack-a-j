@@ -12,12 +12,12 @@ router.post('/createUser', validationForm.validateLoginAndSignup, createUser);
 
 router.post('/loginUser', validationForm.validateLoginAndSignup, loginUser);
 
-router.post('/createRecord', validationForm.validateNewRecord, createRecord);
+router.post('/createRecord', verifyToken.verify, validationForm.validateNewRecord, createRecord);
 
-router.get('/getRecord/:id([0-9]+)', getRecord);
+router.get('/getRecord/:id([0-9]+)', verifyToken.verify, getRecord);
 
-router.put('/updateRecord/:id([0-9]+)', updateRecord);
+router.put('/updateRecord/:id([0-9]+)', verifyToken.verify, updateRecord);
 
-router.delete('deleteRecord/:id([0-9]+)', deleteRecord);
+router.delete('/deleteRecord/:id([0-9]+)', verifyToken.verify, deleteRecord);
 
 module.exports = router;

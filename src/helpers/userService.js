@@ -50,7 +50,12 @@ class userService {
         return FormatService.mountUserSignUp(data);
       }
     } catch (err) {
-      throw err;
+      responseData = {
+        code: codeConstant.INTERNAL_SERVER_ERROR,
+        status: messageConstant.INTERNAL_SERVER_ERROR,
+        message: err.message
+      };
+      return FormatService.mountJSON(responseData);
     }
   }
 
@@ -100,8 +105,13 @@ class userService {
         };
         return FormatService.mountAuth(data);
       }
-    } catch (e) {
-      throw e;
+    } catch (err) {
+      responseData = {
+        code: codeConstant.INTERNAL_SERVER_ERROR,
+        status: messageConstant.INTERNAL_SERVER_ERROR,
+        message: err.message
+      };
+      return FormatService.mountAuth(responseData);
     }
   }
 }
