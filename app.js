@@ -2,6 +2,7 @@ const createError = require('http-errors');
 const express = require('express');
 const cookieParser = require('cookie-parser');
 const dotenv = require('dotenv');
+const helmet = require('helmet');
 const { cors } = require('./src/config/cors');
 
 const routers = require('./src/routes');
@@ -9,6 +10,7 @@ const routers = require('./src/routes');
 dotenv.config();
 const app = express();
 
+app.use(helmet());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());

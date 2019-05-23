@@ -33,7 +33,6 @@
     "mocha": "^6.1.4",
     "mongoose": "^5.5.10",
     "mysql2": "^1.6.5",
-    "newrelic": "^5.9.0",
     "nodemon": "^1.19.0",
     "nyc": "^14.1.1",
     "sequelize": "^5.8.6",
