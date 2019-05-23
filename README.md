@@ -15,6 +15,7 @@ An API challenge by <h><a><j>
 * Check ```/src/database/database.sql``` for the sql scripts to create the tables needed
 * Populate the database with a test account which can be found in the ```/src/database/database.sql``` file
 
+
 ### Running
 * Run: ```npm start``` or ```yarn start```
 
@@ -122,6 +123,10 @@ Authentication required, deletes a record from the database
 ### Running Test
 
 * Run the command `yarn test` OR `npm test` to run the test
+
+### Code Coverage
+
+* To see code coverage, go to ```/coverage/index.html``` and view with a browser
 
 
 

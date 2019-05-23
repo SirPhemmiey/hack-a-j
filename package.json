@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon ./bin/www",
-    "test": "mocha ./src/test/index.js --opts ./src/test/mocha.opts"
+    "test": "nyc --reporter=html mocha ./src/test/index.js --opts ./src/test/mocha.opts"
   },
   "repository": {
     "type": "git",
@@ -35,6 +35,7 @@
     "mysql2": "^1.6.5",
     "newrelic": "^5.9.0",
     "nodemon": "^1.19.0",
+    "nyc": "^14.1.1",
     "sequelize": "^5.8.6",
     "supertest": "^4.0.2"
   },
