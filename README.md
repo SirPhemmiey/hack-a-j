@@ -21,6 +21,8 @@ An API challenge by <h><a><j>
 
 ## Endpoints
 
+https://documenter.getpostman.com/view/3683187/S1TPbM5C
+
 ### Authentication:
 
 `POST /api/v1/loginUser`
