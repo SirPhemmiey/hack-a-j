@@ -1,7 +1,10 @@
+const { Op, Sequelize } = require('sequelize');
+
 const dotenv = require('dotenv');
 const FormatService = require('./FormatService');
 const messageConstant = require('../constant/messageConstants');
 const codeConstant = require('../constant/codeConstants');
+const paginate = require('../../utils/pagination');
 
 dotenv.config();
 /**
@@ -78,6 +81,52 @@ class phoneService {
         };
         return FormatService.mountJSON(responseData);
       }
+    } catch (err) {
+      responseData = {
+        code: codeConstant.INTERNAL_SERVER_ERROR,
+        status: messageConstant.FAIL,
+        message: err.message
+      };
+      return FormatService.mountJSON(responseData);
+    }
+  }
+
+  /**
+   *
+   * @description method to get all records
+   * @param {object} pageoptions
+   * @param {*} Phonebook - The phonebook model
+   * @returns an object
+   * @memberof phoneService
+   */
+  static async getAllRecords(queryOptions, Phonebook) {
+    const { firstname, limit = 10, page = 1 } = queryOptions;
+    const { _limit, offset } = paginate(page, limit);
+
+    const queryBuilder = {
+      distinct: true,
+      attributes: {
+        exclude: ['created_date', 'updated_date']
+      },
+      offset,
+      limit: _limit
+    };
+    if(firstname) {
+      queryBuilder.where = {
+        firstname: {
+          [Op.like]: `%${firstname}%`
+        }
+      }
+    }
+    let responseData = {};
+    try {
+      const details = await Phonebook.findAll(queryBuilder);
+      responseData = {
+        code: codeConstant.OK,
+        status: messageConstant.SUCCESS,
+        data: details
+      };
+      return FormatService.mountJSON(responseData);
     } catch (err) {
       responseData = {
         code: codeConstant.INTERNAL_SERVER_ERROR,

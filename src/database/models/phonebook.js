@@ -24,10 +24,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       phone: {
         type: DataTypes.BIGINT,
-        allowNull: false,
-        validate: {
-          isNumeric: true
-        }
+        allowNull: false
       },
       mobile: {
         type: DataTypes.BIGINT,

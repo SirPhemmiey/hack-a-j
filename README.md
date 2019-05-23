@@ -1,5 +1,7 @@
 # Phonebook Application API
 
+An API challenge by <h><a><j>
+
 ## Prerequisites
 
 * [Node.JS (10.12 or higher)](https://nodejs.org/en/)
@@ -11,6 +13,7 @@
 * Run: ```npm install``` or ```yarn``` to install dependencies
 * Create a .env file in your root directory and copy content from ```.env.sample``` file to ```.env``` file and set environment variables with the appropriate values
 * Check ```/src/database/database.sql``` for the sql scripts to create the tables needed
+* Populate the database with a test account which can be found in the ```/src/database/database.sql``` file
 
 ### Running
 * Run: ```npm start``` or ```yarn start```
@@ -84,7 +87,7 @@ Filter by page and limit(default page=1 and limit=10):
 
 `?page=1&limit=5`
 
-Search by name of item or item description:
+Search by firstname:
 
 `?firstname=Arc`
 
@@ -114,7 +117,11 @@ Accepted fields: `firstname`, `lastname`, `email`, `phone`, `mobile`, `company`,
 
 `DELETE /api/v1/deleteRecord/<recordId>`
 
-Authentication required, deletes an record from the database
+Authentication required, deletes a record from the database
+
+### Running Test
+
+* Run the command `yarn test` OR `npm test` to run the test
 
 
 

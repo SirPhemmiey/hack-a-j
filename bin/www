@@ -88,3 +88,5 @@ server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
 server.timeout = 240000;
+
+module.exports = server;

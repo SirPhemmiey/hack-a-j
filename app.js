@@ -2,37 +2,16 @@ const createError = require('http-errors');
 const express = require('express');
 const cookieParser = require('cookie-parser');
 const dotenv = require('dotenv');
-// const logger = require("morgan");
-// const swaggerUi = require('swagger-ui-express');
 const { cors } = require('./src/config/cors');
 
 const routers = require('./src/routes');
 
-// const swaggerDocument = require('./src/config/swagger.json');
-
 dotenv.config();
 const app = express();
 
-// app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-
-// swaggerDocument.host = `${process.env.HOST}:${process.env.PORT}`;
-// swaggerDocument.schemes = process.env.SCHEMES;
-// app.use(
-//   '/docs',
-//   swaggerUi.serve,
-//   swaggerUi.setup(
-//     swaggerDocument,
-//     null,
-//     null,
-//     '.swagger-ui .topbar { display: none }',
-//     '../favicon.png',
-//     null,
-//     'Turing Test API'
-//   )
-// );
 
 app.use(cors);
 

@@ -25,8 +25,15 @@ const createRecord = async (req, res) => {
  * @param {*} res - Response Object
  */
 const getRecord = async (req, res) => {
-  const { id } = req.params;
+  const { id, page, limit } = req.params;
   const results = await phonebookService.get(id, Phonebook);
+  res.json({
+    ...results
+  });
+};
+
+const getAllRecords = async (req, res) => {
+  const results = await phonebookService.getAllRecords(req.query, Phonebook);
   res.json({
     ...results
   });
@@ -64,6 +71,7 @@ const deleteRecord = async (req, res) => {
 module.exports = {
   createRecord,
   getRecord,
+  getAllRecords,
   updateRecord,
   deleteRecord
 };

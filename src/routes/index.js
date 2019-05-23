@@ -1,6 +1,10 @@
 const express = require('express');
 const {
-  createRecord, getRecord, updateRecord, deleteRecord
+  createRecord,
+  getRecord,
+  getAllRecords,
+  updateRecord,
+  deleteRecord
 } = require('../controllers/phonebook');
 const { createUser, loginUser } = require('../controllers/users');
 const validationForm = require('../helpers/dataValidation');
@@ -15,6 +19,8 @@ router.post('/loginUser', validationForm.validateLoginAndSignup, loginUser);
 router.post('/createRecord', verifyToken.verify, validationForm.validateNewRecord, createRecord);
 
 router.get('/getRecord/:id([0-9]+)', verifyToken.verify, getRecord);
+
+router.get('/getAllRecords', verifyToken.verify, getAllRecords);
 
 router.put('/updateRecord/:id([0-9]+)', verifyToken.verify, updateRecord);
 
