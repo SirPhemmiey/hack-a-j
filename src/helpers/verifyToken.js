@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
+const debug = require('debug');
 
 dotenv.config();
 const secret = process.env.SECRET_KEY;
@@ -21,11 +22,11 @@ class VerifyToken {
    * @memberof VerifyToken
    */
   static verify(req, res, next) {
-    const header = req.headers.authorization;
+    const header = req.headers['x-access-token'] || req.headers.authorization;
+    console.log(req.headers);
     if (typeof header !== 'undefined') {
       const bearer = header.split(' ');
       const token = bearer[1];
-
       req.token = token;
       jwt.verify(token, secret, (err, decoded) => {
         if (err) {

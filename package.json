@@ -4,7 +4,7 @@
   "description": "A phonebook API",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon ./bin/www",
+    "start": "node ./bin/www",
     "test": "nyc --reporter=html mocha ./src/test/index.js --opts ./src/test/mocha.opts"
   },
   "repository": {
