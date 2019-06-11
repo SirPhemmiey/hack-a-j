@@ -1,0 +1,74 @@
+{
+  "swagger": "2.0",
+  "basePath": "/api/v1",
+  "info": {
+    "version": "0.0.1",
+    "title": "Phonebook API",
+    "description": "Official documentation about Phonebook API."
+  },
+  "schemes": [
+    "http"
+  ],
+  "consumes": [
+    "application/x-www-form-urlencoded",
+    "multipart/form-data"
+  ],
+  "tags": [
+    {
+      "name": "Authentication",
+      "description": "Login Endpoint"
+    }
+  ],
+  "definitions": {},
+  "paths": {
+    "/loginUser": {
+      "post": {
+        "tags": [
+          "Authentication"
+        ],
+        "summary": "Authenticates a user",
+        "description": "Authenticate a user and return a token.",
+        "parameters": [
+          {
+            "name": "Username",
+            "in": "formData",
+            "type": "string",
+            "description": "Username",
+            "required": true
+          },
+          {
+            "name": "Password",
+            "in": "formData",
+            "type": "string",
+            "description": "Password",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Object with token",
+            "schema": {
+              "type": "object",
+              "items": {
+                "ok": "ll"
+              },
+              "properties": {
+                "status": {
+                  "type":"string"
+                },
+                "message": {
+                  "type":"string"
+                },
+                "token": {
+                  "type":"string"
+                }
+              }
+            }
+          }
+        },
+        "security": []
+      }
+    }
+  },
+  "securityDefinitions": {}
+}

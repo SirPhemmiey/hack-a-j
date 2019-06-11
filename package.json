@@ -36,7 +36,8 @@
     "nodemon": "^1.19.0",
     "nyc": "^14.1.1",
     "sequelize": "^5.8.6",
-    "supertest": "^4.0.2"
+    "supertest": "^4.0.2",
+    "swagger-ui-express": "^4.0.6"
   },
   "devDependencies": {
     "eslint": "^5.16.0",
