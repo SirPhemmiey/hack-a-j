@@ -1,8 +1,12 @@
 const dotenv = require('dotenv');
-const { Phonebook } = require('../database/models');
+const redis = require('async-redis');
+const debug = require('debug')('api:server');
 const phonebookService = require('../helpers/phonebookService');
+const { Phonebook } = require('../database/models');
 
 dotenv.config();
+
+const client = redis.createClient(process.env.REDIS_PORT);
 
 /**
  *
@@ -26,17 +30,35 @@ const createRecord = async (req, res) => {
  */
 const getRecord = async (req, res) => {
   const { id, page, limit } = req.params;
-  const results = await phonebookService.get(id, Phonebook);
-  res.json({
-    ...results
-  });
+  const recordsKey = 'record:single';
+  const singleRecord = await client.get(recordsKey);
+  if (singleRecord) {
+    res.json({
+      ...JSON.parse(singleRecord)
+    });
+  } else {
+    const results = await phonebookService.get(id, Phonebook);
+    await client.setex(recordsKey, 3600, JSON.stringify(results));
+    res.json({
+      ...results
+    });
+  }
 };
 
 const getAllRecords = async (req, res) => {
-  const results = await phonebookService.getAllRecords(req.query, Phonebook);
-  res.json({
-    ...results
-  });
+  const recordsKey = 'record:all';
+  const allRecords = await client.get(recordsKey);
+  if (allRecords) {
+    res.json({
+      ...JSON.parse(allRecords)
+    });
+  } else {
+    const results = await phonebookService.getAllRecords(req.query, Phonebook);
+    await client.setex(recordsKey, 3600, JSON.stringify(results));
+    res.json({
+      ...results
+    });
+  }
 };
 
 /**

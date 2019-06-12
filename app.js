@@ -4,9 +4,13 @@ const swaggerUi = require('swagger-ui-express');
 const cookieParser = require('cookie-parser');
 const dotenv = require('dotenv');
 const helmet = require('helmet');
+const debug = require('debug')('app:server');
 const swaggerDocument = require('./src/config/swagger.json');
 const { cors } = require('./src/config/cors');
 const rateLimit = require('express-rate-limit');
+const redis = require('redis');
+
+const client = redis.createClient(6379);
 
 const routers = require('./src/routes');
 
@@ -19,6 +23,7 @@ function security(app) {
     windowMs: 15 * 60 * 1000, // 15 minutes
     max: 100 // maximum number of requests from an IP
   });
+  app.use(apiLimiter);
 }
 security(app);
 app.use(express.json());
@@ -49,6 +54,10 @@ app.use('/api/v1', routers);
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
   next(createError(404));
+});
+
+client.on('error', (err) => {
+  debug(`Error ${err}`);
 });
 
 // error handler

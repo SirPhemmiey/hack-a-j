@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/SirPhemmiey/hack-a-j#readme",
   "dependencies": {
+    "async-redis": "^1.1.7",
     "bcrypt": "^3.0.6",
     "chai": "^4.2.0",
     "cookie-parser": "^1.4.4",
@@ -36,6 +37,7 @@
     "mysql2": "^1.6.5",
     "nodemon": "^1.19.0",
     "nyc": "^14.1.1",
+    "redis": "^2.8.0",
     "sequelize": "^5.8.6",
     "supertest": "^4.0.2",
     "swagger-ui-express": "^4.0.6"
