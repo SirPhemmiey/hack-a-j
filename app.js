@@ -6,13 +6,21 @@ const dotenv = require('dotenv');
 const helmet = require('helmet');
 const swaggerDocument = require('./src/config/swagger.json');
 const { cors } = require('./src/config/cors');
+const rateLimit = require('express-rate-limit');
 
 const routers = require('./src/routes');
 
 dotenv.config();
 const app = express();
 
-app.use(helmet());
+function security(app) {
+  app.use(helmet());
+  const apiLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: 100 // maximum number of requests from an IP
+  });
+}
+security(app);
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
