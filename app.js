@@ -10,11 +10,11 @@ const { cors } = require('./src/config/cors');
 const rateLimit = require('express-rate-limit');
 const redis = require('redis');
 
-const client = redis.createClient(6379);
-
 const routers = require('./src/routes');
 
 dotenv.config();
+
+const client = redis.createClient(process.env.REDIS_PORT);
 const app = express();
 
 function security(app) {
@@ -58,6 +58,10 @@ app.use((req, res, next) => {
 
 client.on('error', (err) => {
   debug(`Error ${err}`);
+});
+
+client.on('connect', () => {
+  debug('Redis successfully connected');
 });
 
 // error handler
