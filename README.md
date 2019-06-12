@@ -6,6 +6,7 @@ An API challenge by <h><a><j>
 
 * [Node.JS (10.12 or higher)](https://nodejs.org/en/)
 * [MySQL (5.7 or higher)](https://www.mysql.com/downloads/)
+* [Redis](https://redis.io/)
 
 ### Installing
 * Run: ```git clone https://github.com/SirPhemmiey/hack-a-j.git```
