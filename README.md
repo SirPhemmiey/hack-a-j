@@ -1,4 +1,5 @@
 # Phonebook Application API
+[![Build Status](https://travis-ci.org/SirPhemmiey/hack-a-j.svg?branch=master)](https://travis-ci.org/SirPhemmiey/hack-a-j)
 
 An API challenge by <h><a><j>
 
